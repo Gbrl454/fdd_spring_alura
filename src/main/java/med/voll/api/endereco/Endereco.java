@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Endereco {
     // JPA
-    private String logrdouro;
+    private String logradouro;
     private String bairro;
     private String cep;
     private String cidade;
@@ -20,7 +20,7 @@ public class Endereco {
     private String numero;
 
     public Endereco(DadosEndereco dados) {
-        this.logrdouro = dados.logrdouro();
+        this.logradouro = dados.logradouro();
         this.bairro = dados.bairro();
         this.cep = dados.cep();
         this.cidade = dados.cidade();

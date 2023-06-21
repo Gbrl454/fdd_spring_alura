@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record DadosEndereco(
         @NotBlank
-        String logrdouro,
+        String logradouro,
         @NotBlank
         String bairro,
         @NotBlank @Pattern(regexp = "\\d{8}")
