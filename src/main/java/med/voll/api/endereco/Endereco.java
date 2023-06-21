@@ -19,7 +19,7 @@ public class Endereco {
     private String complemento;
     private String numero;
 
-    public Endereco(DadosEndereco dados) {
+    public Endereco (DadosEndereco dados) {
         this.logradouro = dados.logradouro();
         this.bairro = dados.bairro();
         this.cep = dados.cep();
@@ -27,5 +27,15 @@ public class Endereco {
         this.uf = dados.uf();
         this.complemento = dados.complemento();
         this.numero = dados.numero();
+    }
+
+    public void atuzalizarInformacoes (DadosEndereco dados) {
+        this.logradouro = (dados.logradouro() != null) ? dados.logradouro() : this.logradouro;
+        this.bairro = (dados.bairro() != null) ? dados.bairro() : this.bairro;
+        this.cep = (dados.cep() != null) ? dados.cep() : this.cep;
+        this.cidade = (dados.cidade() != null) ? dados.cidade() : this.cidade;
+        this.uf = (dados.uf() != null) ? dados.uf() : this.uf;
+        this.complemento = (dados.complemento() != null) ? dados.complemento() : this.complemento;
+        this.numero = (dados.numero() != null) ? dados.numero() : this.numero;
     }
 }
