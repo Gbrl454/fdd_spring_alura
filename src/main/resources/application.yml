@@ -4,3 +4,8 @@ spring:
     url: jdbc:mysql://localhost:3306/clinica
     username: root
     password: root
+#  jpa:
+#    showSql: true
+#    properties:
+#      hibernate:
+#        formatSql: true
