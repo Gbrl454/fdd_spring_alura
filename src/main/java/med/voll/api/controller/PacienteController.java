@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 
     @Autowired
@@ -18,25 +20,25 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroPaciente dados) {
+    public void cadastrar (@RequestBody @Valid DadosCadastroPaciente dados) {
         repository.save(new Paciente(dados));
     }
 
     @GetMapping
-    public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable paginacao) {
+    public Page<DadosListagemPaciente> listar (@PageableDefault(size = 10, page = 0, sort = {"nome"}) Pageable paginacao) {
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados) {
+    public void atualizar (@RequestBody @Valid DadosAtualizacaoPaciente dados) {
         var paciente = repository.getReferenceById(dados.id());
         paciente.atuzalizarInformacoes(dados);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deletar(@PathVariable Long id) {
+    public void deletar (@PathVariable Long id) {
         var paciente = repository.getReferenceById(id);
         paciente.excluir();
     }
