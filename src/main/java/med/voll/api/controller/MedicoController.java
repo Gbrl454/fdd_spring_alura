@@ -52,7 +52,6 @@ public class MedicoController {
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar (@PathVariable Long id) {
-        var medico = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(repository.getReferenceById(id)));
     }
 }
