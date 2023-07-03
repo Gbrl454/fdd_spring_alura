@@ -31,5 +31,21 @@ public class Consulta {
     private Paciente paciente;
 
     private LocalDateTime data;
+    private Boolean agendado;
 
+    @Enumerated(EnumType.STRING)
+    private Motivo motivo;
+
+    public Consulta (Long id, Medico medico, Paciente paciente, LocalDateTime data) {
+        this.id = id;
+        this.medico = medico;
+        this.paciente = paciente;
+        this.data = data;
+        this.agendado = true;
+    }
+
+    public void cancelar (Motivo motivo) {
+        this.agendado = false;
+        this.motivo = motivo;
+    }
 }
