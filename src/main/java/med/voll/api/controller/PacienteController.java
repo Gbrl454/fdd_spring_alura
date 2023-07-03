@@ -2,6 +2,7 @@ package med.voll.api.controller;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import med.voll.api.domain.medico.DadosDetalhamentoMedico;
 import med.voll.api.domain.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,5 +49,10 @@ public class PacienteController {
         var paciente = repository.getReferenceById(id);
         paciente.excluir();
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar (@PathVariable Long id) {
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(repository.getReferenceById(id)));
     }
 }
