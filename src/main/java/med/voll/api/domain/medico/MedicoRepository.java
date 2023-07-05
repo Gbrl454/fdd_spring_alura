@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     Page<Medico> findAllByAtivoTrue (Pageable paginacao);
 
+    // Querry nativa direto como no banco
+    // HQL
     @Query("""
             select m from Medico m
             where m.ativo = true

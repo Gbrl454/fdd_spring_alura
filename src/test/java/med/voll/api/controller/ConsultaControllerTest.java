@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssumptions.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,9 +46,7 @@ class ConsultaControllerTest {
     @DisplayName("Deve devolver código HTTP 400 quando informações estão invalidas")
     @WithMockUser
     void agendar_HTTP400 () throws Exception {
-        var response = mvc.perform(post("/consultas")).andReturn().getResponse();
-
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(mvc.perform(post("/consultas")).andReturn().getResponse().getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
@@ -62,7 +61,12 @@ class ConsultaControllerTest {
 
         when(agendaDeConsultas.agendar(any())).thenReturn(dadosDetalhamentoConsulta);
 
-        var response = mvc.perform(post("/consultas").contentType(MediaType.APPLICATION_JSON).content(dadosAgendamentoConsultaJson.write(new DadosAgendamentoConsulta(idMedico, idPaciente, data, especialidade)).getJson())).andReturn().getResponse();
+        var response = mvc.perform(
+                post("/consultas")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(dadosAgendamentoConsultaJson.write(
+                new DadosAgendamentoConsulta(idMedico, idPaciente, data, especialidade)
+        ).getJson())).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         var jsonEsperado = dadosDetalhamentoConsultaJson.write(dadosDetalhamentoConsulta).getJson();
